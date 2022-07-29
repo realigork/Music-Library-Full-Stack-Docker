@@ -1,0 +1,15 @@
+.track-form form {
+    width: 500px;
+}
+
+.track-form fieldset {
+    margin-top: 20px;
+}
+
+.track-form button {
+    margin-right: 10px;
+}
+
+.track-form__new-album-cta {
+    margin-left: 5px;
+}

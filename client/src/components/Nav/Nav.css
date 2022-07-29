@@ -1,0 +1,21 @@
+.nav {
+    display: flex;
+    height: 100%;
+}
+
+.nav__item {
+    display: flex;
+    align-items: center;
+    background: #000;
+    border-right: 1px solid #222;
+    height: 100%;
+    padding: 0 15px;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background 200ms;
+}
+
+.nav__item:hover {
+    background: #222;
+}

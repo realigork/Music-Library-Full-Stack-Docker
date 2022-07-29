@@ -1,0 +1,33 @@
+.dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999;
+}
+
+.dialog__bg {
+    background: rgba(0, 0, 0, 0.7);
+    width: 100vw;
+    height: 100vh;
+}
+
+.dialog__content {
+    background: #000;
+    position: fixed;
+    width: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #333;
+    padding: 20px;
+}
+
+.dialog__actions {
+    margin-top: 40px;
+}
+
+.dialog__actions__item {
+    margin-right: 10px;
+}

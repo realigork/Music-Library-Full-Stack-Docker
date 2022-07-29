@@ -1,0 +1,10 @@
+.tracks__header {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.tracks__header__action--add {
+    position: absolute;
+    top: 0;
+    right: 0;
+}

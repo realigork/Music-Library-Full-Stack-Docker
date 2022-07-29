@@ -1,0 +1,11 @@
+.add-album {
+    width: 400px;
+}
+
+.add-album h2 {
+    margin-bottom: 40px;
+}
+
+.add-album button {
+    margin-top: 20px
+}

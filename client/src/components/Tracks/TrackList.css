@@ -1,0 +1,25 @@
+.track-list__item {
+    display: flex;
+}
+
+.track-list__item--header {
+    border-top: 1px solid #222;
+    font-size: 1em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.track-list__item div:first-child {
+    border-left: 1px solid #222;
+}
+
+.track-list__item div {
+    flex: 1;
+    border-right: 1px solid #222;
+    border-bottom: 1px solid #222;
+    padding: 10px;
+}
+
+.track-list__item__action {
+    margin-right: 5px;
+}

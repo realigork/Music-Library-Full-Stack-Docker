@@ -1,0 +1,19 @@
+.album-item__header {
+    display: flex;
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.album-item__header__text {
+    margin-left: 20px;
+}
+
+.album-item__header h2 {
+    margin-bottom: 20px;
+}
+
+.album-item__header button {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
