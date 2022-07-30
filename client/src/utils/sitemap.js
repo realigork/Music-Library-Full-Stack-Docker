@@ -7,6 +7,7 @@ export const PATHS = {
     Tracks: 'Tracks',
     EditTrack: 'EditTrack',
     AddTrack: 'AddTrack',
+    Api: 'Api'
 }
 
 const SITEMAP = {
@@ -18,6 +19,7 @@ const SITEMAP = {
     [PATHS.Tracks]: { path: '/tracks' },
     [PATHS.EditTrack]: { path: '/tracks/edit/:id' },
     [PATHS.AddTrack]: { path: '/tracks/add' },
+    [PATHS.Api]: { path: '/api' }
 };
 
 export const getPathByKey = (key, params = {}) => {

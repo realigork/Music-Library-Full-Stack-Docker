@@ -39,69 +39,36 @@ Run docker-compose container in a detached mode
 docker-compose up -d
 ```
 
+Run docker-compose container in a detached mode specifying that it needs to build a Dockerfile
+```bash
+docker-compose up -d --build
+```
+
 # MySQL
 
 Default port for MySQL is 3306
 
 Connect via terminal to test the connection:
+```bash
 mysql -h localhost -P 3306 --protocol=tcp -uroot -pletmein
+```
 
-Ensure 'artlist' database exists:
+Ensure 'musiclibrarydb' database exists:
+```bash
 SHOW DATABASES;
+```
 
 If yes, connect to it:
-USE artlist
+```bash
+USE musiclibrarydb
+```
 
 Now check which tables exist:
+```bash
 SHOW TABLES;
+```
 
-## Current Problems
-
-I am not able to create tables using init.sql script. It does create 'artlist' database, but not tables. Therefore, I have to connect to MySQL client via terminal:
+To view rows and columns of the table:
 ```bash
-mysql -h localhost -P 3306 --protocol=tcp -uroot -pletmein
+DESC <tablename>
 ```
-
-Switch to artlist database:
-```bash
-USE artlist
-```
-
-Then copy and paste script to create tables albums and tracks:
-```sql
-CREATE TABLE IF NOT EXISTS albums (
-    id          BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    name        VARCHAR(255) DEFAULT NULL,
-    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (id)
-);
-
-CREATE TABLE IF NOT EXISTS tracks (
-    id          BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    name        VARCHAR(255) DEFAULT NULL,
-    artist      VARCHAR(255) DEFAULT NULL,
-    genre       VARCHAR(255) DEFAULT NULL,
-    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (id)
-);
-```
-
-# TODO
-
-1. Assign tracks to albums
-  - create a separate table albumtracks that contains album_id and track_id columns
-  - create a query to insert the data into the albumtracks
-  - update getAlbum query to return album data together with an array of assigned tracks:
-    - select * from albums by id
-    - select * from albumtracks by id
-    - select * from tracks by returned values from the albumtracks
-    - contruct the data
-
-
-## DATA DUMP
-
-INSERT INTO albums (album_name) VALUES ('My favourites mixes');
-INSERT INTO albums (album_name) VALUES ('Phonk Collection');
-INSERT INTO tracks (track_name, artist, genre) VALUES ("Test track ok", "Lxst Cxntury", "Phonk");
-INSERT INTO tracks (track_name, artist, genre, album_id) VALUES ("Flystyler", "Lxst Cxntury", "Phonk", 2);
-INSERT INTO tracks (track_name, artist, genre, album_id) VALUES ("Platinum Show", "Lxst Cxntury", "Phonk", 2);

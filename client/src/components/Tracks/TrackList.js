@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
+import Dialog from '../Dialog/Dialog';
 import { PATHS, getPathByKey } from "../../utils/sitemap";
 import { removeArrayItem } from "../../utils/array";
 
@@ -15,6 +16,8 @@ function TrackList({
     const location = useLocation();
     const navigate = useNavigate();
     const [tracksSelected, setTracksSelected] = useState([]);
+    const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+    const [trackToDelete, setTrackToDelete] = useState('');
 
     function handleEditTrackClick(id) {
         return navigate(`${getPathByKey(PATHS.EditTrack, { id })}?backpath=${location.pathname}`)
@@ -23,11 +26,13 @@ function TrackList({
     function handleDeleteTrackClick(id) {
         setTracksSelected([]);
         onDelete([id]);
+        toggleDeleteWarning(false, '')
     }
 
     function handleDeleteSelectedTracks() {
         setTracksSelected([]);
         onDelete(tracksSelected);
+        toggleDeleteWarning(false, '')
     }
 
     function onSelect(e) {
@@ -41,12 +46,27 @@ function TrackList({
         setTracksSelected(selected);
     }
 
+    function toggleDeleteWarning(isShowing, trackId) {
+        setShowDeleteWarning(isShowing);
+        setTrackToDelete(trackId);
+    }
+
     if (!tracks || tracks.length < 1) {
-        return undefined;
+        return <h4>No tracks yet</h4>;
     }
 
     return (
         <div className="track-list-container">
+            {showDeleteWarning && (
+                <Dialog
+                    title={`${deleteLabel} track`}
+                    text="Are you sure?"
+                    confirmLabel={deleteLabel}
+                    cancelLabel="Cancel"
+                    onConfirm={() => handleDeleteTrackClick(trackToDelete)}
+                    onCancel={() => toggleDeleteWarning(false, '')}
+                />
+            )}
             {tracks?.length > 0 && (
                 <div>
                     <h4>Tracks</h4>
@@ -76,7 +96,7 @@ function TrackList({
                                         </button>
                                         <button
                                             className="track-list__item__action track-list__item__action--delete"
-                                            onClick={() => handleDeleteTrackClick(track.track_id)}
+                                            onClick={() => toggleDeleteWarning(true, track.track_id)}
                                         >
                                             {deleteLabel}
                                         </button>

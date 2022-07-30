@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import TrackForm from "./TrackForm";
+import Spinner from '../Spinner/Spinner';
 import { getAlbums } from '../../api/albums';
 import { getTrack, updateTrack } from "../../api/tracks";
 import { PATHS, getPathByKey } from "../../utils/sitemap";
@@ -24,24 +25,29 @@ function EditTrack() {
     const [artist, setArtist] = useState('');
     const [genre, setGenre] = useState('');
     const [selectedAlbum, setSelectedAlbum] = useState('');
+    const [notFound, setNotFound] = useState(false);
 
     useEffect(() => {
         getTrack(locationParams.id).then(trackData => {
-            setTrackName(trackData.track_name);
-            setArtist(trackData.artist);
-            setGenre(trackData.genre);
-            setSelectedAlbum(trackData.album_name);
-            setLoading(false);
-        });
+            if (!trackData) {
+                setNotFound(true)
+            } else {
+                getAlbums().then(albumsData => {
+                    setAlbums(albumsData);
+                    setTrackName(trackData.track_name);
+                    setArtist(trackData.artist);
+                    setGenre(trackData.genre);
+                    setSelectedAlbum(trackData.album_name || '');
+                });
+            }
 
-        getAlbums().then(albumsData => {
-            setAlbums(albumsData);
+            setLoading(false);
         });
     }, []);
 
     function findAlbumId(name) {
         const entry = albums.find(a => a.album_name === name);
-        return entry?.album_id || '';
+        return entry?.album_id || null;
     }
 
     function handleChange(e) {
@@ -87,7 +93,16 @@ function EditTrack() {
     }
 
     if (loading) {
-        return <h2>Loading...</h2>
+        return <Spinner />
+    }
+
+    if (notFound) {
+        return (
+            <div>
+                <h2>Track Not Found!</h2>
+                <button onClick={handleCancel}>Go back</button>
+            </div>
+        )
     }
 
     return (

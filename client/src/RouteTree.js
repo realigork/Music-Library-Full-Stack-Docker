@@ -7,12 +7,14 @@ import AddAlbum from "./components/Albums/AddAlbum";
 import Tracks from "./components/Tracks/Tracks";
 import EditTrack from "./components/Tracks/EditTrack";
 import AddTrack from "./components/Tracks/AddTrack";
+import Api from './components/Api/Api';
 import { PATHS, getPathByKey } from "./utils/sitemap";
 
 
 const RouteTree = () => {
     return (
         <Routes>
+            <Route path={getPathByKey(PATHS.Api)} element={<Api />} />
             <Route path={getPathByKey(PATHS.Album)} element={<AlbumItem />} />
             <Route path={getPathByKey(PATHS.AddAlbum)} element={<AddAlbum />} />
             <Route path={getPathByKey(PATHS.Albums)} element={<Albums />} />

@@ -20,6 +20,42 @@ services:
     networks:
       - internalnet
 
+  nodeapp:
+    container_name: nodeappcontainer
+    build: ./server
+    image: nodeapp:v1
+    ports:
+      - 8000:8000
+    expose:
+      - 8000
+    environment:
+      DB_HOST: mysqldb
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: letmein
+      DB_NAME: musiclibrarydb
+      DB_CONNECTION_LIMIT: 20
+      SERVICE_TAGS: dev
+      SERVICE_NAME: nodeappservice
+      SERVER_PORT: 8000
+    depends_on:
+      - mysqldb
+    networks:
+      - internalnet
+
+  clientapp:
+    container_name: clientappcontainer
+    build: ./client
+    image: clientapp:v1
+    ports:
+      - 3000:3000
+    expose:
+      - 3000
+    depends_on:
+      - nodeapp
+    networks:
+      - internalnet
+
 networks:
   internalnet:
     driver: bridge

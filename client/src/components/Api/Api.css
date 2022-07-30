@@ -1,0 +1,45 @@
+.api-list {
+    position: relative;
+}
+
+.api-list h3 {
+    margin-bottom: 30px;
+}
+
+.api-list__item {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #222;
+    padding: 20px;
+    margin-bottom: 40px;
+}
+
+.api-list__item__section {
+    margin-bottom: 50px;
+}
+
+.api-list__item__section:last-child {
+    margin-bottom: 0;
+}
+
+.api-list__item__row {
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px solid #222;
+}
+
+.api-list__item__row:first-child {
+    border-top: 1px solid #222;
+}
+
+.api-list__item__row div:first-child {
+    flex: 1
+}
+
+.api-list__item__row div:last-child {
+    flex: 6;
+}
+
+.api-list__item__row li {
+    margin-bottom: 10px;
+}

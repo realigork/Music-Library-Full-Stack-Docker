@@ -18,6 +18,7 @@ function TrackForm({
 }) {
     const location = useLocation();
     const navigate = useNavigate();
+
     function handleNewAlbumClick() {
         return navigate(`${getPathByKey(PATHS.AddAlbum)}?backpath=${location.pathname}`)
     }
@@ -45,11 +46,13 @@ function TrackForm({
                 <fieldset>
                     <label>Album: </label>
                     <select onChange={onChange} name="album" value={selectedAlbum}>
-                        <option>Not selected</option>
-                        {albums.map(album => <option key={album.album_id}>{album.album_name}</option>)}
+                        <option value="Not Selected">Not Selected</option>
+                        {albums.map(album => <option key={album.album_id} value={album.album_name}>{album.album_name}</option>)}
                     </select>
 
-                    <button className="track-form__new-album-cta btn--small" onClick={handleNewAlbumClick}>New album</button>
+                    <button className="track-form__new-album-cta btn--small" onClick={handleNewAlbumClick}>
+                        Add New Album
+                    </button>
                 </fieldset>
 
                 <fieldset className="track-form__actions">

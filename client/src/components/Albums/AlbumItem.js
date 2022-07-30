@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Dialog from '../Dialog/Dialog';
+import Spinner from '../Spinner/Spinner';
 import TrackList from '../Tracks/TrackList';
 import { getAlbum, deleteAlbum } from '../../api/albums';
 import { deleteTracksFromAlbum } from "../../api/tracks";
@@ -12,12 +13,23 @@ import "./AlbumItem.css";
 function AlbumItem() {
     const location = useParams();
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
     const [albumData, setAlbumData] = useState({});
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+    const [notFound, setNotFound] = useState(false);
 
     useEffect(() => {
         getAlbum(location.id).then(data => {
-            setAlbumData(data);
+            if (!data) {
+                setNotFound(true);
+                setAlbumData({});
+            } else {
+                setAlbumData(data);
+            }
+
+            setLoading(false);
+        }).catch(err => {
+            setLoading(false);
         });
     }, []);
 
@@ -46,8 +58,12 @@ function AlbumItem() {
             });
     }
 
-    if (!albumData) {
-        return <div>Loading...</div>
+    if (loading) {
+        return <Spinner />
+    }
+
+    if (notFound) {
+        return <h2>Album Not Found</h2>
     }
 
     return (
