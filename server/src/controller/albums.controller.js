@@ -35,7 +35,7 @@ export const createAlbum = (req, res) => {
         }
 
         const album = {
-            id: results.insertedId,
+            id: results.insertId,
             ...req.body,
             created_at: new Date()
         };

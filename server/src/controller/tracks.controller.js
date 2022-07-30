@@ -28,7 +28,7 @@ export const createTrack = (req, res) => {
         }
 
         const track = {
-            id: results.insertedId,
+            id: results.insertId,
             ...req.body,
             created_at: new Date()
         };
